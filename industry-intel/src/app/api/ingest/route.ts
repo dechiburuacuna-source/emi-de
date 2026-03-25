@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { fetchAllRSSFeeds } from '@/lib/rss'
+import { searchAllWebSources, WEB_SEARCH_SOURCES } from '@/lib/webSearchIngest'
 import { processArticlesBatch } from '@/lib/openai'
 import { upsertArticle, articleExistsByUrl, makeId, purgeOldArticles } from '@/lib/storage'
 import { RSS_SOURCES } from '@/lib/sources'
@@ -18,21 +19,40 @@ export async function POST(req: Request) {
   const startTime = Date.now()
   const result: IngestResult = { fetched: 0, new_articles: 0, processed: 0, errors: [], duration_ms: 0 }
 
+  if (!process.env.OPENAI_API_KEY) {
+    result.errors.push('OPENAI_API_KEY not set — cannot run ingest')
+    result.duration_ms = Date.now() - startTime
+    return NextResponse.json({ success: false, ...result })
+  }
+
   try {
     // 0. Purge articles older than 60 days
     const purged = await purgeOldArticles()
     console.log(`[Ingest] Purged ${purged} old articles`)
 
-    // 1. Fetch RSS feeds (with URL validation built-in)
-    console.log(`[Ingest] Fetching ${RSS_SOURCES.length} RSS sources...`)
-    const { articles: rawArticles, failed } = await fetchAllRSSFeeds(RSS_SOURCES)
-    result.fetched = rawArticles.length
-    if (failed.length) result.errors.push(`RSS failed: ${failed.join(', ')}`)
-    console.log(`[Ingest] Fetched ${rawArticles.length} items; ${failed.length} sources failed`)
+    // 1a. Fetch RSS feeds
+    console.log(`[Ingest] Fetching RSS from ${RSS_SOURCES.length} sources...`)
+    const { articles: rssArticles, failed: rssFailed } = await fetchAllRSSFeeds(RSS_SOURCES)
+    if (rssFailed.length) console.log(`[Ingest] RSS failed for: ${rssFailed.join(', ')}`)
 
-    // 2. Filter new articles
+    // 1b. Web search for Chilean press sources (reliable regardless of RSS availability)
+    console.log(`[Ingest] Web searching ${WEB_SEARCH_SOURCES.length} Chilean press sources...`)
+    const { articles: webArticles, failed: webFailed } = await searchAllWebSources()
+    if (webFailed.length) result.errors.push(`Web search failed: ${webFailed.join(', ')}`)
+
+    // 1c. Merge and deduplicate
+    const seen = new Set<string>()
+    const allRaw = [...rssArticles, ...webArticles].filter(a => {
+      if (!a.url || seen.has(a.url)) return false
+      seen.add(a.url)
+      return true
+    })
+    result.fetched = allRaw.length
+    console.log(`[Ingest] Total fetched: ${allRaw.length} (RSS: ${rssArticles.length}, Web: ${webArticles.length})`)
+
+    // 2. Filter new articles only
     const newRaw = []
-    for (const raw of rawArticles) {
+    for (const raw of allRaw) {
       try {
         if (!(await articleExistsByUrl(raw.url))) newRaw.push(raw)
       } catch { result.errors.push(`URL check failed: ${raw.url}`) }
@@ -45,33 +65,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, ...result })
     }
 
-    // 3. Process with OpenAI
-    if (!process.env.OPENAI_API_KEY) {
-      result.errors.push('OPENAI_API_KEY not set')
-      result.duration_ms = Date.now() - startTime
-      return NextResponse.json({ success: false, ...result })
-    }
-
+    // 3. Process with OpenAI GPT-4o-mini (classify + bilingual summaries)
     const processed = await processArticlesBatch(newRaw, 3, (done, total) => {
-      console.log(`[Ingest] AI: ${done}/${total}`)
+      console.log(`[Ingest] AI processing: ${done}/${total}`)
     })
 
-    // 4. Store
+    // 4. Store each processed article
     for (const { raw, processed: fields } of processed) {
       if (!fields) { result.errors.push(`AI failed: ${raw.url}`); continue }
       const article: Article = {
-        id: makeId(), title: raw.title, title_es: fields.title_es,
+        id: makeId(),
+        title: raw.title, title_es: fields.title_es,
         source: raw.source, source_type: raw.source_type,
         location: fields.location, category: fields.category,
         date: raw.date, url: raw.url, content: raw.content,
         extended_description: fields.extended_description,
         extended_description_es: fields.extended_description_es,
-        short_summary: fields.short_summary, short_summary_es: fields.short_summary_es,
+        short_summary: fields.short_summary,
+        short_summary_es: fields.short_summary_es,
         created_at: new Date().toISOString(), processed: true,
       }
       try { await upsertArticle(article); result.processed++ }
       catch (err) { result.errors.push(`Store failed: ${raw.url}`) }
     }
+
   } catch (err) {
     const msg = (err as Error).message
     console.error('[Ingest] Fatal:', msg)
@@ -81,6 +98,6 @@ export async function POST(req: Request) {
   }
 
   result.duration_ms = Date.now() - startTime
-  console.log(`[Ingest] Done in ${result.duration_ms}ms — stored ${result.processed}`)
+  console.log(`[Ingest] Completed in ${result.duration_ms}ms — stored ${result.processed} articles`)
   return NextResponse.json({ success: true, ...result })
 }
