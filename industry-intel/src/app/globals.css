@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font variable mappings (loaded via <link> in layout.tsx) */
+:root {
+  --font-barlow-condensed: 'Barlow Condensed', sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', monospace;
+  --font-barlow: 'Barlow', sans-serif;
+}
+
+/* ── Custom scrollbars ─────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1A2540 transparent;
+}
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1A2540; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #243354; }
+
+/* ── Base resets ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+
+/* ── Line clamp ────────────────────────────────────────── */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
