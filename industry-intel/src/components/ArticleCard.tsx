@@ -1,105 +1,81 @@
 'use client'
-
 import type { Article } from '@/types/article'
 
 interface ArticleCardProps {
-  article: Article
-  selected: boolean
-  lang: 'en' | 'es'
-  onClick: () => void
-  index: number
+  article: Article; selected: boolean; lang: 'en' | 'es'; onClick: () => void; index: number
 }
 
 const CAT_COLORS: Record<string, string> = {
-  Mining: '#F5A623',
-  Energy: '#1FBF6A',
-  'Data Centers': '#00C8F0',
+  Mining: 'var(--mining-ink)', Energy: 'var(--energy-ink)', 'Data Centers': 'var(--dc-ink)',
 }
-
-const CAT_BG: Record<string, string> = {
-  Mining: 'rgba(245,166,35,0.10)',
-  Energy: 'rgba(31,191,106,0.10)',
-  'Data Centers': 'rgba(0,200,240,0.10)',
+const CAT_LABELS_ES: Record<string, string> = {
+  Mining: 'Minería', Energy: 'Energía', 'Data Centers': 'Data Centers',
 }
 
 export default function ArticleCard({ article, selected, lang, onClick, index }: ArticleCardProps) {
   const title = lang === 'es' && article.title_es ? article.title_es : article.title
-  const desc = lang === 'es' && article.extended_description_es
-    ? article.extended_description_es
-    : article.extended_description
-
-  const cc = CAT_COLORS[article.category] || '#1A2540'
-  const cb = CAT_BG[article.category] || 'transparent'
+  const desc = lang === 'es' && article.extended_description_es ? article.extended_description_es : article.extended_description
+  const cc = CAT_COLORS[article.category] || 'var(--ink-dark)'
+  const catLabel = lang === 'es' ? CAT_LABELS_ES[article.category] : article.category
 
   const fmtDate = (ds: string) => {
     try {
-      return new Date(ds).toLocaleDateString(lang === 'es' ? 'es-CL' : 'en-US', {
-        month: 'short', day: 'numeric', year: 'numeric',
-      })
+      return new Date(ds).toLocaleDateString(lang === 'es' ? 'es-CL' : 'en-US', { month: 'short', day: 'numeric' })
     } catch { return ds }
   }
 
   return (
-    <div
+    <article
       onClick={onClick}
       style={{
-        animationDelay: `${index * 35}ms`,
-        borderLeft: `3px solid ${selected ? '#00C8F0' : cc}`,
+        animationDelay: `${index * 30}ms`,
+        borderLeft: `3px solid ${selected ? 'var(--accent-red)' : cc}`,
+        background: selected ? 'var(--paper-3)' : 'var(--paper)',
+        cursor: 'pointer',
+        transition: 'all 0.12s ease',
       }}
-      className={`relative rounded-sm p-3.5 cursor-pointer transition-all duration-150 animate-fade-up border ${
-        selected
-          ? 'border-dc bg-cyan-dim'
-          : 'border-border bg-bg-3 hover:bg-bg-4 hover:border-border-2 hover:translate-x-0.5'
-      }`}
+      className="animate-in pl-3 pr-2 py-3 border-b group hover:bg-paper-3"
+      onMouseEnter={e => { if (!selected) (e.currentTarget as HTMLElement).style.background = 'var(--paper-2)' }}
+      onMouseLeave={e => { if (!selected) (e.currentTarget as HTMLElement).style.background = 'var(--paper)' }}
     >
-      {/* Top row */}
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <h3 className="font-condensed text-sm font-semibold leading-snug tracking-wide text-ink">
-          {title}
-        </h3>
-        <span className="font-mono text-[9px] text-ink-3 flex-shrink-0 mt-0.5">
-          {fmtDate(article.date)}
+      {/* Meta row */}
+      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+        <span className="font-sans text-xxs font-semibold tracking-[0.15em] uppercase" style={{ color: cc }}>{catLabel}</span>
+        <span style={{ color: 'var(--rule)' }}>·</span>
+        <span className="font-sans text-xxs" style={{ color: 'var(--ink-faint)' }}>{article.source}</span>
+        <span style={{ color: 'var(--rule)' }}>·</span>
+        <span className="font-mono text-xxs" style={{ color: 'var(--ink-faint)' }}>{fmtDate(article.date)}</span>
+        <span className="ml-auto">
+          <span className="font-mono text-xxs px-1.5 py-0.5 rounded-sm"
+            style={{
+              color: article.source_type === 'Institutional' ? 'var(--inst-ink)' : 'var(--press-ink)',
+              background: article.source_type === 'Institutional' ? 'rgba(61,26,110,0.07)' : 'rgba(110,61,26,0.07)',
+              border: `1px solid ${article.source_type === 'Institutional' ? 'rgba(61,26,110,0.2)' : 'rgba(110,61,26,0.2)'}`,
+            }}>
+            {article.source_type === 'Institutional' ? (lang === 'es' ? 'Inst.' : 'Inst.') : (lang === 'es' ? 'Prensa' : 'Press')}
+          </span>
         </span>
       </div>
 
-      {/* Description */}
-      <p className="text-[11px] text-ink-2 leading-relaxed mb-3 line-clamp-3">
+      {/* Headline */}
+      <h3 className="font-display font-bold leading-snug mb-2 line-clamp-3 md:line-clamp-2"
+        style={{ color: 'var(--ink-black)', fontSize: 'clamp(0.9rem, 1.5vw, 1.05rem)' }}>
+        {title}
+      </h3>
+
+      {/* Body text */}
+      <p className="font-body text-xs leading-relaxed line-clamp-3 hidden md:block"
+        style={{ color: 'var(--ink-body)' }}>
         {desc}
       </p>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-1.5">
-        {/* Category */}
-        <span
-          className="font-mono text-[9px] font-medium px-1.5 py-0.5 rounded-sm uppercase tracking-wide border"
-          style={{ color: cc, borderColor: `${cc}40`, background: cb }}
-        >
-          {article.category}
-        </span>
-
-        {/* Source */}
-        <span className="font-mono text-[9px] px-1.5 py-0.5 rounded-sm bg-white/[0.04] text-ink-2">
-          {article.source}
-        </span>
-
-        {/* Source type */}
-        <span
-          className={`font-mono text-[9px] px-1.5 py-0.5 rounded-sm border uppercase tracking-wide ${
-            article.source_type === 'Institutional'
-              ? 'text-institutional border-institutional/30 bg-institutional/10'
-              : 'text-press border-press/30 bg-press/10'
-          }`}
-        >
-          {article.source_type === 'Institutional'
-            ? (lang === 'es' ? 'Inst.' : 'Inst.')
-            : (lang === 'es' ? 'Prensa' : 'Press')}
-        </span>
-
-        {/* Location */}
-        <span className="font-mono text-[9px] px-1.5 py-0.5 rounded-sm bg-white/[0.03] text-ink-3">
+      {/* Location tag */}
+      <div className="mt-2 hidden md:flex items-center gap-2">
+        <span className="font-mono text-xxs px-1.5 py-0.5 rounded-sm"
+          style={{ color: 'var(--ink-muted)', background: 'var(--paper-3)', border: '1px solid var(--rule)' }}>
           {article.location}
         </span>
       </div>
-    </div>
+    </article>
   )
 }

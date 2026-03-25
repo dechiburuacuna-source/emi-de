@@ -4,99 +4,63 @@ import { randomUUID } from 'crypto'
 import type { Article, ArticleFilters } from '@/types/article'
 import { getSupabaseClient, isSupabaseConfigured } from './supabase'
 
-// ─────────────────────────────────────────────────────────────
-// JSON file storage (local dev fallback)
-// ─────────────────────────────────────────────────────────────
-
 const DATA_FILE = path.join(process.cwd(), 'data', 'articles.json')
+const RETENTION_DAYS = 60
 
 async function readJSON(): Promise<Article[]> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf8')
-    return JSON.parse(raw)
-  } catch {
-    return []
-  }
+  try { return JSON.parse(await fs.readFile(DATA_FILE, 'utf8')) }
+  catch { return [] }
 }
-
 async function writeJSON(articles: Article[]): Promise<void> {
   await fs.mkdir(path.dirname(DATA_FILE), { recursive: true })
   await fs.writeFile(DATA_FILE, JSON.stringify(articles, null, 2))
 }
 
-// ─────────────────────────────────────────────────────────────
-// Public API
-// ─────────────────────────────────────────────────────────────
+function cutoffDate(): string {
+  const d = new Date()
+  d.setDate(d.getDate() - RETENTION_DAYS)
+  return d.toISOString().split('T')[0]
+}
 
 export async function getArticles(filters?: ArticleFilters): Promise<Article[]> {
-  if (isSupabaseConfigured()) {
-    return getArticlesSupabase(filters)
-  }
-  return getArticlesJSON(filters)
+  return isSupabaseConfigured() ? getArticlesSupabase(filters) : getArticlesJSON(filters)
 }
-
 export async function upsertArticle(article: Article): Promise<void> {
-  if (isSupabaseConfigured()) {
-    return upsertArticleSupabase(article)
-  }
-  return upsertArticleJSON(article)
+  return isSupabaseConfigured() ? upsertArticleSupabase(article) : upsertArticleJSON(article)
 }
-
 export async function articleExistsByUrl(url: string): Promise<boolean> {
   if (isSupabaseConfigured()) {
     const sb = getSupabaseClient()
-    const { data } = await sb
-      .from('articles')
-      .select('id')
-      .eq('url', url)
-      .maybeSingle()
+    const { data } = await sb.from('articles').select('id').eq('url', url).maybeSingle()
     return !!data
   }
-  const all = await readJSON()
-  return all.some(a => a.url === url)
+  return (await readJSON()).some(a => a.url === url)
 }
-
-export async function getArticleCount(): Promise<number> {
+export async function purgeOldArticles(): Promise<number> {
+  const cutoff = cutoffDate()
   if (isSupabaseConfigured()) {
     const sb = getSupabaseClient()
-    const { count } = await sb.from('articles').select('id', { count: 'exact', head: true })
+    const { count } = await sb.from('articles').delete({ count: 'exact' }).lt('date', cutoff)
+    console.log('[Purge] Supabase deleted', count, 'articles older than', cutoff)
     return count || 0
   }
   const all = await readJSON()
-  return all.length
+  const kept = all.filter(a => a.date >= cutoff)
+  const removed = all.length - kept.length
+  if (removed > 0) { await writeJSON(kept); console.log('[Purge] JSON deleted', removed, 'old articles') }
+  return removed
 }
-
-export function makeId(): string {
-  return randomUUID()
-}
-
-// ─────────────────────────────────────────────────────────────
-// Supabase implementations
-// ─────────────────────────────────────────────────────────────
+export function makeId(): string { return randomUUID() }
 
 async function getArticlesSupabase(filters?: ArticleFilters): Promise<Article[]> {
   const sb = getSupabaseClient()
-  let query = sb
-    .from('articles')
-    .select('*')
-    .eq('processed', true)
-    .order('date', { ascending: false })
-    .limit(200)
-
-  if (filters?.category && filters.category !== 'all') {
-    query = query.eq('category', filters.category)
-  }
-  if (filters?.locations?.length) {
-    query = query.in('location', filters.locations)
-  }
-  if (filters?.sourceType) {
-    query = query.eq('source_type', filters.sourceType)
-  }
-  if (filters?.source) {
-    query = query.eq('source', filters.source)
-  }
-
-  const { data, error } = await query
+  const cutoff = cutoffDate()
+  let q = sb.from('articles').select('*').eq('processed', true).gte('date', cutoff).order('date', { ascending: false }).limit(300)
+  if (filters?.category && filters.category !== 'all') q = q.eq('category', filters.category)
+  if (filters?.locations?.length) q = q.in('location', filters.locations)
+  if (filters?.sourceType) q = q.eq('source_type', filters.sourceType)
+  if (filters?.source) q = q.eq('source', filters.source)
+  const { data, error } = await q
   if (error) throw error
   return (data || []) as Article[]
 }
@@ -104,19 +68,15 @@ async function getArticlesSupabase(filters?: ArticleFilters): Promise<Article[]>
 async function upsertArticleSupabase(article: Article): Promise<void> {
   const sb = getSupabaseClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { error } = await sb
-    .from('articles')
-    .upsert(article as any, { onConflict: 'url' })
+  const { error } = await sb.from('articles').upsert(article as any, { onConflict: 'url' })
   if (error) throw error
 }
 
-// ─────────────────────────────────────────────────────────────
-// JSON file implementations
-// ─────────────────────────────────────────────────────────────
-
 function applyFilters(articles: Article[], filters?: ArticleFilters): Article[] {
+  const cutoff = cutoffDate()
   return articles.filter(a => {
     if (!a.processed) return false
+    if (a.date < cutoff) return false
     if (filters?.category && filters.category !== 'all' && a.category !== filters.category) return false
     if (filters?.locations?.length && !filters.locations.includes(a.location)) return false
     if (filters?.sourceType && a.source_type !== filters.sourceType) return false
@@ -127,19 +87,12 @@ function applyFilters(articles: Article[], filters?: ArticleFilters): Article[] 
 
 async function getArticlesJSON(filters?: ArticleFilters): Promise<Article[]> {
   const all = await readJSON()
-  return applyFilters(all, filters).sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  ).slice(0, 200)
+  return applyFilters(all, filters).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 300)
 }
 
 async function upsertArticleJSON(article: Article): Promise<void> {
   const all = await readJSON()
   const idx = all.findIndex(a => a.url === article.url)
-  if (idx >= 0) {
-    all[idx] = article
-  } else {
-    all.unshift(article)
-  }
-  // Keep max 500 articles
-  await writeJSON(all.slice(0, 500))
+  if (idx >= 0) all[idx] = article; else all.unshift(article)
+  await writeJSON(all.slice(0, 1000))
 }

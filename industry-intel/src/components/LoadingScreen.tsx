@@ -1,57 +1,23 @@
 'use client'
-
-interface LoadingScreenProps {
-  message?: string
-  progress?: number
-}
-
-export default function LoadingScreen({ message = 'Loading intelligence feed', progress = 0 }: LoadingScreenProps) {
+export default function LoadingScreen({ message = 'Loading', progress = 0 }: { message?: string; progress?: number }) {
   return (
-    <div className="fixed inset-0 z-50 bg-bg flex flex-col items-center justify-center gap-5">
-      <div className="flex gap-1 items-center mb-1">
-        <div className="w-2.5 h-2.5 rounded-sm bg-dc" />
-        <div className="w-2.5 h-2.5 rounded-sm bg-mining" />
-        <div className="w-2.5 h-2.5 rounded-sm bg-energy" />
-        <div className="w-2.5 h-2.5 rounded-sm bg-institutional" />
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6"
+      style={{ background: 'var(--paper)' }}>
+      <div className="text-center">
+        <h1 className="font-display font-black tracking-tight"
+          style={{ color: 'var(--ink-black)', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+          Industry<span style={{ color: 'var(--accent-red)' }}>·</span>Intelligence
+        </h1>
+        <div className="mt-1" style={{ borderTop: '4px solid var(--ink-black)' }} />
       </div>
-
-      <div className="font-condensed text-xl font-extrabold tracking-[3px] uppercase text-ink">
-        Industry <span className="text-dc">Intel</span>
+      <div className="flex flex-col items-center gap-3">
+        <p className="font-body text-sm" style={{ color: 'var(--ink-muted)' }}>{message}</p>
+        <div className="w-48 h-px overflow-hidden" style={{ background: 'var(--rule)' }}>
+          <div className="h-full transition-all duration-700" style={{ width: `${progress}%`, background: 'var(--ink-black)' }} />
+        </div>
+        <span className="font-mono text-xxs" style={{ color: 'var(--ink-faint)' }}>{progress}%</span>
       </div>
-
-      <div className="w-9 h-9 border-2 border-border-2 border-t-dc rounded-full animate-spin" />
-
-      <div className="flex items-center gap-1.5 font-mono text-[11px] text-ink-2">
-        <span>{message}</span>
-        <span className="flex gap-0.5">
-          {[0, 1, 2].map(i => (
-            <span
-              key={i}
-              className="text-dc"
-              style={{
-                animation: `blink 1.4s infinite ${i * 0.2}s`,
-                display: 'inline-block',
-              }}
-            >.</span>
-          ))}
-        </span>
-      </div>
-
-      <div className="w-56 h-0.5 bg-border rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-700 ease-out"
-          style={{
-            width: `${progress}%`,
-            background: 'linear-gradient(90deg, #00C8F0, #9D7BF8)',
-          }}
-        />
-      </div>
-
-      <span className="font-mono text-[10px] text-ink-3">{progress}%</span>
-
-      <style>{`
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
-      `}</style>
+      <style>{`@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}`}</style>
     </div>
   )
 }
