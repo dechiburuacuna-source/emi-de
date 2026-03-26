@@ -11,7 +11,7 @@ const parser = new Parser({
 })
 
 export interface RawArticle {
-  title: string; url: string; source: string; source_type: 'Institutional' | 'Press'
+  title: string; url: string; source: string; source_type: 'Institutional' | 'Press' | 'Conglomerado' | 'Market Advisor'
   location: string; categories: string[]; date: string; content: string; lang: string
 }
 

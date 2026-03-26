@@ -10,7 +10,7 @@ create table if not exists public.articles (
   title                 text not null,
   title_es              text,
   source                text not null,
-  source_type           text not null check (source_type in ('Institutional', 'Press')),
+  source_type           text not null check (source_type in ('Institutional', 'Press', 'Conglomerado', 'Market Advisor')),
   location              text not null check (location in ('Chile', 'Italy', 'Poland', 'Mexico', 'Spain', 'Global')),
   category              text not null check (category in ('Mining', 'Energy', 'Data Centers')),
   date                  date not null,

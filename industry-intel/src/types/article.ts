@@ -1,6 +1,6 @@
-export type Category = 'Mining' | 'Energy' | 'Data Centers'
-export type Location  = 'Chile' | 'Italy' | 'Poland' | 'Mexico' | 'Spain' | 'Global'
-export type SourceType = 'Institutional' | 'Press'
+export type Category   = 'Mining' | 'Energy' | 'Data Centers'
+export type Location   = 'Chile' | 'Italy' | 'Poland' | 'Mexico' | 'Spain' | 'Global'
+export type SourceType = 'Institutional' | 'Press' | 'Conglomerado' | 'Market Advisor'
 
 export interface Article {
   id: string
@@ -38,8 +38,8 @@ export interface IngestResult {
 }
 
 export interface Metrics {
-  byCategory: Record<Category, number>
-  byLocation:  Record<Location, number>
+  byCategory:   Record<Category, number>
+  byLocation:   Record<Location, number>
   bySourceType: Record<SourceType, number>
-  bySource: Record<string, number>
+  bySource:     Record<string, number>
 }
