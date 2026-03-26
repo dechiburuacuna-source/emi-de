@@ -611,4 +611,503 @@ export const MOCK_ARTICLES: Article[] = [
     processed: true,
   },
 
+
+  // ════════════════════════════════════════════════════════
+  // ITALIA
+  // ════════════════════════════════════════════════════════
+
+  // ── Terna (Institutional) ────────────────────────────────
+  {
+    id: 'mock-terna-001',
+    title: 'Terna: Italy sets new renewable generation record with 43% clean share in Q1',
+    title_es: 'Terna: Italia marca récord de generación renovable con 43% de participación limpia en Q1',
+    source: 'Terna',
+    source_type: 'Institutional',
+    location: 'Italy',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://www.terna.it/it/media/notizie/2024/record-rinnovabili-q1',
+    extended_description: 'Terna, the Italian transmission system operator, reported that renewables covered 43% of national electricity demand in Q1, a new record driven by strong hydro recovery and continued solar expansion. Wind and solar combined generated 28% of demand, while hydropower contributed 15% following above-average rainfall in the Alps and Apennines. Italy added 5.2 GW of new solar in the past 12 months, accelerating toward its 2030 PNIEC targets.',
+    extended_description_es: 'Terna informó que las renovables cubrieron el 43% de la demanda eléctrica nacional en Q1, un nuevo récord impulsado por la recuperación hidráulica y la expansión solar. Italia añadió 5,2 GW de nueva energía solar en los últimos 12 meses.',
+    short_summary: [
+      'Italy sets Q1 renewable record at 43% of electricity demand, driven by hydro recovery and solar growth.',
+      'Wind and solar provided 28% of demand; hydro contributed 15% after above-average Alpine rainfall.',
+      'Italy added 5.2 GW of solar in 12 months, accelerating toward 2030 PNIEC renewable targets.',
+    ],
+    short_summary_es: [
+      'Italia marca récord de renovables en Q1 con 43% de la demanda eléctrica, liderado por hidro y solar.',
+      'Solar y eólica aportaron el 28%; la hidro contribuyó el 15% tras lluvias por encima de lo normal en los Alpes.',
+      'Italia sumó 5,2 GW de solar en 12 meses, acelerando hacia los objetivos del PNIEC 2030.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+  {
+    id: 'mock-terna-002',
+    title: 'Terna approves €18 billion grid development plan to enable renewable integration through 2035',
+    title_es: 'Terna aprueba plan de desarrollo de red de €18.000M para integrar renovables hasta 2035',
+    source: 'Terna',
+    source_type: 'Institutional',
+    location: 'Italy',
+    category: 'Energy',
+    date: d(5),
+    url: 'https://www.terna.it/it/media/notizie/2024/piano-sviluppo-rete-2035',
+    extended_description: 'Terna approved an €18 billion grid development plan for 2024-2035, the largest infrastructure investment in Italian electricity history. The plan prioritizes high-voltage backbone reinforcement in Southern Italy and Sicily to evacuate growing wind and solar generation, as well as three new submarine interconnectors with Tunisia, Greece, and Montenegro. The investment is expected to reduce congestion costs by €2 billion annually and unlock 70 GW of additional renewable capacity.',
+    extended_description_es: 'Terna aprobó un plan de desarrollo de red de €18.000 millones para 2024-2035, la mayor inversión en infraestructura eléctrica de la historia italiana. El plan prioriza el refuerzo de la red troncal en el sur de Italia y Sicilia.',
+    short_summary: [
+      'Terna approves record €18B grid plan to 2035 — Italy\'s largest-ever electricity infrastructure program.',
+      'Southern Italy and Sicily backbone reinforcement to unlock 70 GW of blocked renewable capacity.',
+      'Three new submarine cables to Tunisia, Greece, and Montenegro included in the investment scope.',
+    ],
+    short_summary_es: [
+      'Terna aprueba plan de red de €18.000M hasta 2035 — el mayor programa de infraestructura eléctrica de Italia.',
+      'Refuerzo de la red troncal en el sur y Sicilia para desbloquear 70 GW de capacidad renovable.',
+      'Tres nuevos cables submarinos a Túnez, Grecia y Montenegro incluidos en el plan.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Ministero dell'Ambiente (Institutional) ──────────────
+  {
+    id: 'mock-mase-001',
+    title: "Italy's MASE publishes updated National Integrated Energy and Climate Plan targeting 65% renewables by 2030",
+    title_es: 'El MASE de Italia publica el PNIEC actualizado con objetivo del 65% de renovables para 2030',
+    source: "Ministero dell'Ambiente",
+    source_type: 'Institutional',
+    location: 'Italy',
+    category: 'Energy',
+    date: d(3),
+    url: 'https://www.mase.gov.it/notizie/pniec-aggiornamento-2024',
+    extended_description: 'The Italian Ministry of Environment and Energy Security published the revised National Integrated Energy and Climate Plan (PNIEC), raising the 2030 renewables target to 65% of electricity consumption from the previous 55% objective. The plan mandates 80 GW of solar, 28 GW of wind, and 8 GW of storage by 2030. It also outlines a €300 billion total decarbonization investment pathway and includes new mechanisms to streamline permitting for large-scale renewable projects.',
+    extended_description_es: 'El Ministerio italiano publicó el PNIEC revisado, elevando el objetivo de renovables al 65% del consumo eléctrico para 2030 desde el 55% anterior. El plan exige 80 GW solar, 28 GW eólico y 8 GW de almacenamiento para 2030.',
+    short_summary: [
+      'Italy raises 2030 renewable electricity target to 65% in updated PNIEC — up from 55% previously.',
+      'Plan mandates 80 GW solar, 28 GW wind, and 8 GW storage by 2030 with €300B total investment.',
+      'Streamlined permitting for large-scale renewable projects is a key new mechanism in the revised plan.',
+    ],
+    short_summary_es: [
+      'Italia eleva el objetivo de renovables al 65% para 2030 en el PNIEC actualizado, desde el 55% anterior.',
+      'El plan exige 80 GW solar, 28 GW eólico y 8 GW de almacenamiento, con €300.000M de inversión total.',
+      'La agilización de permisos para proyectos renovables a gran escala es el nuevo mecanismo clave del plan.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Il Sole 24 Ore (Press) ───────────────────────────────
+  {
+    id: 'mock-sole24-001',
+    title: 'Il Sole 24 Ore: Italian solar sector attracts €4.2 billion in new investment in first half 2024',
+    title_es: 'Il Sole 24 Ore: El sector solar italiano atrae €4.200M en nueva inversión en el primer semestre de 2024',
+    source: 'Il Sole 24 Ore',
+    source_type: 'Press',
+    location: 'Italy',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://www.ilsole24ore.com/art/investimenti-solare-italia-2024',
+    extended_description: 'Italy attracted €4.2 billion in solar energy investment in H1 2024, making it the second-largest European market for new solar deployment after Spain, according to Il Sole 24 Ore. Agrivoltaic projects — combining solar panels with agricultural use — accounted for 35% of new capacity requests, reflecting Italy\'s innovative approach to land-use conflicts. The Conto Energia incentive scheme revision is expected to further accelerate investment in H2.',
+    extended_description_es: 'Italia atrajo €4.200 millones en inversión solar en el primer semestre de 2024, convirtiéndose en el segundo mayor mercado europeo de solar tras España. Los proyectos agrivoltaicos representaron el 35% de las nuevas solicitudes de capacidad.',
+    short_summary: [
+      'Italy becomes Europe\'s second-largest solar market in H1 2024, attracting €4.2B in new investment.',
+      'Agrivoltaic projects (solar + farming) represent 35% of new capacity requests, leading European innovation.',
+      'Revised Conto Energia incentives expected to further accelerate deployment in H2 2024.',
+    ],
+    short_summary_es: [
+      'Italia se convierte en el segundo mayor mercado solar europeo en H1 2024, con €4.200M de nueva inversión.',
+      'Los proyectos agrivoltaicos (solar + agricultura) representan el 35% de solicitudes de nueva capacidad.',
+      'La revisión del Conto Energia impulsará la instalación en el segundo semestre.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Energia Oltre (Press) ────────────────────────────────
+  {
+    id: 'mock-eoltre-001',
+    title: 'Energia Oltre: Italian grid-scale battery storage pipeline reaches 12 GW amid AI data center boom',
+    title_es: 'Energia Oltre: El pipeline de baterías a gran escala en Italia alcanza los 12 GW por el auge de los data centers IA',
+    source: 'Energia Oltre',
+    source_type: 'Press',
+    location: 'Italy',
+    category: 'Energy',
+    date: d(4),
+    url: 'https://www.energiaoltre.it/bess-pipeline-12gw-datacenter',
+    extended_description: 'The pipeline of grid-scale battery energy storage projects in Italy has reached 12 GW of authorized or authorized-pending capacity, driven in part by the surge in data center construction in the Milan and Rome corridors. Developers are increasingly co-locating storage with renewable generation to provide stable power to hyperscaler campuses. The Italian regulatory authority ARERA opened a consultation on capacity market reforms to better remunerate storage flexibility services.',
+    extended_description_es: 'El pipeline de proyectos de almacenamiento de baterías a gran escala en Italia ha alcanzado los 12 GW de capacidad autorizada o pendiente de autorización, impulsado en parte por el auge de la construcción de centros de datos en los corredores de Milán y Roma.',
+    short_summary: [
+      'Italy\'s grid-scale battery pipeline reaches 12 GW, driven by data center demand in Milan and Rome.',
+      'Developers co-locating storage with renewables to supply stable power to hyperscaler campuses.',
+      'ARERA opens capacity market reform consultation to improve remuneration for storage flexibility.',
+    ],
+    short_summary_es: [
+      'El pipeline de baterías a gran escala en Italia alcanza los 12 GW, impulsado por la demanda de data centers.',
+      'Los desarrolladores co-ubican almacenamiento con renovables para abastecer a los hiperescaladores.',
+      'ARERA abre consulta sobre la reforma del mercado de capacidad para remunerar mejor la flexibilidad.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ════════════════════════════════════════════════════════
+  // POLONIA
+  // ════════════════════════════════════════════════════════
+
+  // ── PSE (Institutional) ──────────────────────────────────
+  {
+    id: 'mock-pse-001',
+    title: 'PSE: Polish power grid passes 10 GW wind capacity milestone as offshore projects advance',
+    title_es: 'PSE: La red eléctrica polaca supera los 10 GW de capacidad eólica a medida que avanzan los proyectos offshore',
+    source: 'PSE',
+    source_type: 'Institutional',
+    location: 'Poland',
+    category: 'Energy',
+    date: d(3),
+    url: 'https://www.pse.pl/aktualnosci/rekord-mocy-wiatrowej-2024',
+    extended_description: 'Polish transmission system operator PSE announced that total wind power capacity connected to the national grid exceeded 10 GW for the first time, with onshore wind representing 9.2 GW and the first 800 MW of Baltic offshore now operational. The grid operator is accelerating transmission upgrades along the northern coast ahead of the planned commissioning of 6 additional GW of offshore wind by 2030. PSE estimates €4.5 billion in grid investment will be required to integrate the offshore pipeline.',
+    extended_description_es: 'El operador polaco PSE anunció que la capacidad eólica total superó los 10 GW por primera vez, con 9,2 GW eólicos terrestres y los primeros 800 MW marítimos en el Mar Báltico ya operativos.',
+    short_summary: [
+      'Poland surpasses 10 GW wind capacity milestone with first 800 MW of Baltic offshore now operational.',
+      'PSE accelerates northern grid upgrades ahead of 6 additional GW of offshore wind by 2030.',
+      'Grid integration for offshore pipeline requires €4.5B in transmission investment through 2030.',
+    ],
+    short_summary_es: [
+      'Polonia supera los 10 GW de capacidad eólica con los primeros 800 MW marítimos ya operativos.',
+      'PSE acelera las actualizaciones de la red en el norte para otros 6 GW de eólica marina hasta 2030.',
+      'La integración de la eólica marina requiere €4.500M en inversión en transmisión hasta 2030.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+  {
+    id: 'mock-pse-002',
+    title: 'PSE: Poland\'s coal share in electricity generation falls below 60% for first time',
+    title_es: 'PSE: La cuota del carbón en la generación eléctrica polaca cae por debajo del 60% por primera vez',
+    source: 'PSE',
+    source_type: 'Institutional',
+    location: 'Poland',
+    category: 'Energy',
+    date: d(6),
+    url: 'https://www.pse.pl/aktualnosci/wegiel-ponizej-60-procent-2024',
+    extended_description: 'For the first time in modern history, coal\'s share of Polish electricity generation dropped below 60%, reaching 58.4% in the latest monthly statistics from PSE. Renewables — primarily wind and solar — now cover 31% of demand, up from 22% just three years ago. The shift reflects both accelerated renewable deployment and the gradual retirement of older coal units that can no longer compete economically with low-marginal-cost renewables during peak generation hours.',
+    extended_description_es: 'Por primera vez, la cuota del carbón en la generación eléctrica polaca cayó por debajo del 60%, alcanzando el 58,4%. Las renovables ahora cubren el 31% de la demanda, frente al 22% de hace tres años.',
+    short_summary: [
+      'Coal falls below 60% of Polish electricity generation for the first time, reaching 58.4% in latest data.',
+      'Renewables now cover 31% of Polish power demand, up sharply from 22% three years ago.',
+      'Economic uncompetitiveness of older coal units during solar and wind peaks accelerates retirements.',
+    ],
+    short_summary_es: [
+      'El carbón cae por debajo del 60% de la generación eléctrica polaca por primera vez, al 58,4%.',
+      'Las renovables cubren ahora el 31% de la demanda polaca, frente al 22% de hace tres años.',
+      'La falta de competitividad de las viejas centrales de carbón acelera su retirada del mercado.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Ministry of Climate Poland (Institutional) ───────────
+  {
+    id: 'mock-mcp-001',
+    title: 'Poland\'s Ministry of Climate announces accelerated coal phase-out plan for Silesia region by 2035',
+    title_es: 'El Ministerio de Clima de Polonia anuncia un plan acelerado de eliminación del carbón en Silesia para 2035',
+    source: 'Ministry of Climate Poland',
+    source_type: 'Institutional',
+    location: 'Poland',
+    category: 'Energy',
+    date: d(4),
+    url: 'https://www.gov.pl/web/klimat/plan-odejscia-od-wegla-slask-2035',
+    extended_description: 'Poland\'s Ministry of Climate and Environment announced an accelerated transition plan for the Silesian coal region, targeting full phase-out of coal mining by 2035 — five years ahead of the previous 2040 objective. The plan includes €12 billion in EU Just Transition Fund support for worker retraining, clean energy industry development, and environmental remediation of former mining sites. The announcement followed renewed pressure from the European Commission over Poland\'s delayed climate commitments.',
+    extended_description_es: 'El Ministerio de Clima de Polonia anunció un plan de transición acelerado para la región carbonífera de Silesia, con cierre total de la minería de carbón para 2035, cinco años antes del objetivo previo de 2040.',
+    short_summary: [
+      'Poland moves Silesian coal phase-out forward to 2035 — five years ahead of previous 2040 schedule.',
+      '€12 billion in EU Just Transition Funds allocated for worker retraining and clean industry development.',
+      'European Commission pressure over delayed climate commitments accelerated the revised timeline.',
+    ],
+    short_summary_es: [
+      'Polonia adelanta el fin del carbón en Silesia a 2035, cinco años antes del objetivo de 2040.',
+      '€12.000 millones del Fondo de Transición Justa de la UE para reentrenamiento e industria limpia.',
+      'La presión de la Comisión Europea sobre los compromisos climáticos aceleró el nuevo calendario.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── BiznesAlert (Press) ──────────────────────────────────
+  {
+    id: 'mock-biz-001',
+    title: 'BiznesAlert: Orlen and Equinor sign 1.5 GW Baltic offshore wind partnership agreement',
+    title_es: 'BiznesAlert: Orlen y Equinor firman acuerdo de asociación para 1,5 GW de eólica marina en el Báltico',
+    source: 'BiznesAlert',
+    source_type: 'Press',
+    location: 'Poland',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://biznesalert.pl/orlen-equinor-offshore-baltyk-2024',
+    extended_description: 'PKN Orlen and Equinor formalized a partnership to jointly develop 1.5 GW of offshore wind capacity in the Polish Baltic Sea exclusive economic zone. The project, targeting commissioning in 2030-2031, will require approximately PLN 22 billion in total investment. BiznesAlert reports the partnership leverages Equinor\'s offshore expertise from the North Sea with Orlen\'s domestic regulatory and supply chain relationships. Grid connection contracts with PSE have been signed.',
+    extended_description_es: 'Orlen y Equinor formalizaron una asociación para desarrollar conjuntamente 1,5 GW de eólica marina en la ZEE polaca del Mar Báltico, con puesta en servicio prevista para 2030-2031 y una inversión total de 22.000 millones de PLN.',
+    short_summary: [
+      'Orlen and Equinor partner to develop 1.5 GW of Baltic offshore wind, targeting 2030-2031 commissioning.',
+      'Total investment estimated at PLN 22 billion; PSE grid connection contracts already signed.',
+      'Deal combines Equinor\'s North Sea offshore expertise with Orlen\'s Polish regulatory relationships.',
+    ],
+    short_summary_es: [
+      'Orlen y Equinor se asocian para desarrollar 1,5 GW de eólica marina báltica, con puesta en marcha en 2030-2031.',
+      'Inversión total estimada en 22.000 millones de PLN; contratos de conexión a red con PSE ya firmados.',
+      'El acuerdo combina la experiencia offshore del Mar del Norte de Equinor con las relaciones regulatorias de Orlen.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Warsaw Business Journal (Press) ─────────────────────
+  {
+    id: 'mock-wbj-001',
+    title: 'Warsaw Business Journal: Poland emerges as Central Europe\'s top data center investment destination',
+    title_es: 'Warsaw Business Journal: Polonia emerge como el principal destino de inversión en data centers de Europa Central',
+    source: 'Warsaw Business Journal',
+    source_type: 'Press',
+    location: 'Poland',
+    category: 'Data Centers',
+    date: d(3),
+    url: 'https://wbj.pl/poland-data-center-investment-2024',
+    extended_description: 'Poland attracted over €3.2 billion in data center investment commitments in 2024, surpassing the Czech Republic and Hungary to become Central Europe\'s leading market, according to Warsaw Business Journal. Microsoft, Google, and a consortium of co-location operators announced Warsaw campus expansions totaling 480 MW. The country\'s competitive electricity prices, EU membership, and skilled technical workforce are cited as key competitive advantages.',
+    extended_description_es: 'Polonia atrajo más de €3.200 millones en compromisos de inversión en centros de datos en 2024, superando a República Checa y Hungría para convertirse en el principal mercado de Europa Central.',
+    short_summary: [
+      'Poland attracts €3.2B in data center investment in 2024, topping Central Europe ahead of Czech Republic.',
+      'Microsoft, Google, and co-location operators announce Warsaw campus expansions totaling 480 MW.',
+      'Competitive power prices, EU membership, and technical talent cited as Poland\'s key advantages.',
+    ],
+    short_summary_es: [
+      'Polonia atrae €3.200M en inversión en data centers en 2024, liderando Europa Central.',
+      'Microsoft, Google y operadores de colocation anuncian ampliaciones en Varsovia por 480 MW.',
+      'Precios eléctricos competitivos, membresía UE y talento técnico como ventajas clave de Polonia.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ════════════════════════════════════════════════════════
+  // ESPAÑA
+  // ════════════════════════════════════════════════════════
+
+  // ── Red Eléctrica (Institutional) ───────────────────────
+  {
+    id: 'mock-ree-001',
+    title: 'Red Eléctrica: Spain surpasses 80 GW installed renewable capacity, wind leads with 31 GW',
+    title_es: 'Red Eléctrica: España supera los 80 GW de capacidad renovable instalada, la eólica lidera con 31 GW',
+    source: 'Red Electrica',
+    source_type: 'Institutional',
+    location: 'Spain',
+    category: 'Energy',
+    date: d(1),
+    url: 'https://www.ree.es/es/sala-de-prensa/noticias/2024/80gw-renovables',
+    extended_description: 'Red Eléctrica de España reported that total installed renewable capacity exceeded 80 GW for the first time, with wind leading at 31 GW, solar at 29 GW, and hydro at 20 GW. Spain generated 56% of its electricity from renewables in the first half of the year, on track to exceed its 74% target for 2030 ahead of schedule. The operator also highlighted growing curtailment challenges in southern Spain during peak solar hours, requiring urgent storage and interconnection investment.',
+    extended_description_es: 'Red Eléctrica informó que la capacidad renovable instalada superó los 80 GW por primera vez, con la eólica liderando con 31 GW, la solar con 29 GW y la hidráulica con 20 GW. España generó el 56% de su electricidad de renovables en el primer semestre.',
+    short_summary: [
+      'Spain surpasses 80 GW installed renewables: wind 31 GW, solar 29 GW, hydro 20 GW.',
+      '56% renewable electricity share in H1 puts Spain on track to exceed 2030 74% target early.',
+      'Growing curtailment in southern Spain during solar peaks signals urgent need for storage investment.',
+    ],
+    short_summary_es: [
+      'España supera los 80 GW de renovables instaladas: eólica 31 GW, solar 29 GW, hidro 20 GW.',
+      'El 56% de electricidad renovable en H1 pone a España en camino de superar el objetivo del 74% antes de 2030.',
+      'El creciente vertimiento en el sur durante las horas solares señala la urgencia de invertir en almacenamiento.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── MITECO (Institutional) ───────────────────────────────
+  {
+    id: 'mock-miteco-001',
+    title: 'MITECO approves Spain\'s first green hydrogen valley in Puertollano with €800M state backing',
+    title_es: 'MITECO aprueba el primer valle de hidrógeno verde de España en Puertollano con €800M de respaldo estatal',
+    source: 'MITECO',
+    source_type: 'Institutional',
+    location: 'Spain',
+    category: 'Energy',
+    date: d(4),
+    url: 'https://www.miteco.gob.es/es/prensa/hidrogeno-verde-puertollano-aprobacion.html',
+    extended_description: 'Spain\'s Ministry for Ecological Transition approved the first designated Green Hydrogen Valley in Puertollano, Castilla-La Mancha, with €800 million in public-private financing supported by EU Innovation Fund grants. The project will develop 500 MW of dedicated electrolysis capacity supplied by collocated solar, targeting green steel, ammonia, and mobility applications. MITECO expects the valley to produce 40,000 tonnes of green hydrogen annually by 2028.',
+    extended_description_es: 'El MITECO aprobó el primer Valle de Hidrógeno Verde en Puertollano, con €800 millones de financiación público-privada y apoyo del Fondo de Innovación de la UE. El proyecto desarrollará 500 MW de electrólisis abastecida por solar colocalizada.',
+    short_summary: [
+      'MITECO approves Spain\'s first Green Hydrogen Valley in Puertollano with €800M public-private financing.',
+      '500 MW electrolysis capacity collocated with solar, targeting green steel, ammonia, and mobility.',
+      'Project targets 40,000 tonnes of green hydrogen annually by 2028, backed by EU Innovation Fund.',
+    ],
+    short_summary_es: [
+      'MITECO aprueba el primer Valle de Hidrógeno Verde de España en Puertollano con €800M de financiación.',
+      '500 MW de electrólisis colocalizada con solar, para acero verde, amoníaco y movilidad.',
+      'El proyecto apunta a 40.000 toneladas anuales de H2 verde para 2028, con apoyo del Fondo de Innovación UE.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── El País (Press) ──────────────────────────────────────
+  {
+    id: 'mock-elpais-001',
+    title: 'El País: Spain becomes Europe\'s largest exporter of renewable electricity for second consecutive year',
+    title_es: 'El País: España se convierte en el mayor exportador de electricidad renovable de Europa por segundo año consecutivo',
+    source: 'El Pais',
+    source_type: 'Press',
+    location: 'Spain',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://elpais.com/economia/2024/espana-mayor-exportador-electricidad-renovable-europa',
+    extended_description: 'Spain consolidated its position as Europe\'s largest net exporter of renewable electricity for the second consecutive year, with net exports of 28 TWh to France, Portugal, and Morocco in 2024. The structural surplus reflects the rapid accumulation of solar and wind capacity, which frequently exceeds domestic demand during daytime hours. Energy economists warn that without sufficient storage or new interconnections, the surplus will increasingly result in negative prices and curtailment rather than export revenue.',
+    extended_description_es: 'España consolidó su posición como mayor exportador neto de electricidad renovable de Europa por segundo año consecutivo, con exportaciones netas de 28 TWh a Francia, Portugal y Marruecos.',
+    short_summary: [
+      'Spain is Europe\'s largest net renewable electricity exporter for the second year running, with 28 TWh in 2024.',
+      'Structural surplus driven by solar and wind capacity frequently exceeding domestic daytime demand.',
+      'Economists warn that without storage or interconnections, surplus will lead to curtailment not revenue.',
+    ],
+    short_summary_es: [
+      'España es el mayor exportador neto de electricidad renovable de Europa por segundo año consecutivo, con 28 TWh.',
+      'El excedente estructural refleja la capacidad solar y eólica que supera frecuentemente la demanda diurna.',
+      'Sin almacenamiento o interconexiones, el excedente derivará en vertimiento, no en ingresos de exportación.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Expansión (Press) ────────────────────────────────────
+  {
+    id: 'mock-expansion-001',
+    title: 'Expansión: Iberdrola and Repsol announce €3B Spanish offshore wind joint venture in the Atlantic',
+    title_es: 'Expansión: Iberdrola y Repsol anuncian una joint venture de €3.000M de eólica marina en el Atlántico español',
+    source: 'Expansion',
+    source_type: 'Press',
+    location: 'Spain',
+    category: 'Energy',
+    date: d(3),
+    url: 'https://www.expansion.com/empresas/energia/2024/iberdrola-repsol-eolica-marina-atlantico',
+    extended_description: 'Iberdrola and Repsol announced a €3 billion joint venture to develop 2 GW of floating offshore wind in the Spanish Atlantic — Spain\'s first major offshore wind industrial-scale project. The partnership, to be developed off the coasts of Galicia and the Canary Islands, leverages Iberdrola\'s offshore wind experience with Repsol\'s oil and gas marine engineering capabilities. Commercial operations are targeted for 2031, subject to environmental permitting expected to conclude in 2026.',
+    extended_description_es: 'Iberdrola y Repsol anunciaron una joint venture de €3.000 millones para desarrollar 2 GW de eólica marina flotante en el Atlántico español, el primer proyecto offshore de escala industrial de España.',
+    short_summary: [
+      'Iberdrola and Repsol launch €3B JV for 2 GW floating offshore wind off Galicia and Canary Islands.',
+      'Spain\'s first industrial-scale offshore wind project targets commercial operation in 2031.',
+      'Permitting process expected to conclude in 2026; Repsol\'s marine engineering key to floating design.',
+    ],
+    short_summary_es: [
+      'Iberdrola y Repsol lanzan una JV de €3.000M para 2 GW de eólica marina flotante en Galicia y Canarias.',
+      'El primer proyecto offshore de escala industrial de España apunta a operación comercial en 2031.',
+      'El proceso de permisos concluirá en 2026; la ingeniería marina de Repsol es clave para el diseño flotante.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ════════════════════════════════════════════════════════
+  // MÉXICO
+  // ════════════════════════════════════════════════════════
+
+  // ── SENER (Institutional) ────────────────────────────────
+  {
+    id: 'mock-sener-001',
+    title: 'SENER: Mexico launches 5 GW renewable energy tender as part of energy security strategy',
+    title_es: 'SENER: México lanza una licitación de 5 GW de energías renovables como parte de la estrategia de seguridad energética',
+    source: 'SENER',
+    source_type: 'Institutional',
+    location: 'Mexico',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://www.gob.mx/sener/prensa/licitacion-renovables-5gw-2024',
+    extended_description: 'Mexico\'s Secretariat of Energy launched a 5 GW competitive tender for solar and wind projects as part of the new National Energy Security Strategy. The tender targets capacity additions in Sonora, Oaxaca, and Tamaulipas — states with the highest renewable resource quality. Projects must include a 20% local content requirement and are eligible for 25-year power purchase agreements with CFE at guaranteed floor prices. Bids are due in Q4 2024 with commercial operations expected by 2027.',
+    extended_description_es: 'La Secretaría de Energía de México lanzó una licitación competitiva de 5 GW para proyectos solares y eólicos en Sonora, Oaxaca y Tamaulipas. Los proyectos deben cumplir un requisito de contenido local del 20% y son elegibles para contratos de largo plazo con CFE.',
+    short_summary: [
+      'Mexico SENER launches 5 GW renewable tender covering solar and wind in Sonora, Oaxaca, and Tamaulipas.',
+      '25-year CFE PPAs with floor prices offered; 20% local content required for project eligibility.',
+      'Bids due Q4 2024 with commercial operations targeted by 2027 under new Energy Security Strategy.',
+    ],
+    short_summary_es: [
+      'SENER México lanza licitación de 5 GW de renovables en Sonora, Oaxaca y Tamaulipas.',
+      'Se ofrecen PPA de 25 años con la CFE a precios mínimos; se requiere 20% de contenido local.',
+      'Ofertas en Q4 2024, con operación comercial prevista para 2027 bajo la nueva Estrategia de Seguridad Energética.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── CFE (Institutional) ──────────────────────────────────
+  {
+    id: 'mock-cfe-001',
+    title: 'CFE announces $4.2 billion transmission modernization plan to reduce technical losses by 2028',
+    title_es: 'CFE anuncia plan de modernización de transmisión de US$4.200M para reducir pérdidas técnicas para 2028',
+    source: 'CFE',
+    source_type: 'Institutional',
+    location: 'Mexico',
+    category: 'Energy',
+    date: d(5),
+    url: 'https://www.cfe.mx/noticias/plan-transmision-modernizacion-2028',
+    extended_description: 'Comisión Federal de Electricidad announced a $4.2 billion five-year transmission modernization program targeting a reduction of technical losses from the current 14.5% to below 10% by 2028. The plan prioritizes 380 kV backbone upgrades across Mexico\'s central plateau, smart grid technology deployment, and the interconnection of 14 new renewable energy zones. CFE also announced a pilot program for 500 MW of grid-scale battery storage at five strategic substations.',
+    extended_description_es: 'La CFE anunció un programa de modernización de transmisión de US$4.200 millones a cinco años, con objetivo de reducir las pérdidas técnicas del 14,5% actual a menos del 10% para 2028.',
+    short_summary: [
+      'CFE announces $4.2B transmission modernization to cut technical losses from 14.5% to under 10% by 2028.',
+      'Plan upgrades 380 kV backbone across central Mexico and connects 14 new renewable energy zones.',
+      '500 MW battery storage pilot at five strategic substations included in modernization program.',
+    ],
+    short_summary_es: [
+      'CFE anuncia modernización de transmisión de US$4.200M para reducir pérdidas del 14,5% al 10% para 2028.',
+      'El plan actualiza la red troncal de 380 kV en el altiplano central y conecta 14 nuevas zonas de renovables.',
+      'Piloto de 500 MW de almacenamiento en baterías en cinco subestaciones estratégicas.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── El Financiero Mexico (Press) ──────────────────────────
+  {
+    id: 'mock-elfin-001',
+    title: 'El Financiero: Nearshoring boom drives 35% surge in industrial electricity demand in northern Mexico',
+    title_es: 'El Financiero: El auge del nearshoring impulsa un aumento del 35% en la demanda industrial de electricidad en el norte de México',
+    source: 'El Financiero',
+    source_type: 'Press',
+    location: 'Mexico',
+    category: 'Energy',
+    date: d(2),
+    url: 'https://www.elfinanciero.com.mx/economia/nearshoring-electricidad-norte-mexico-2024',
+    extended_description: 'Industrial electricity demand in northern Mexico surged 35% over the past two years, driven by nearshoring investments from US, Asian, and European manufacturers relocating supply chains to leverage proximity to the US market. Nuevo León, Chihuahua, and Coahuila are experiencing power shortages during peak hours, forcing some industrial parks to negotiate dedicated generation contracts. CFE and private developers are racing to add capacity, with over 8 GW of industrial solar projects in permitting.',
+    extended_description_es: 'La demanda industrial de electricidad en el norte de México creció un 35% en los últimos dos años, impulsada por inversiones de nearshoring de fabricantes que trasladan cadenas de suministro para aprovechar la proximidad al mercado de EE.UU.',
+    short_summary: [
+      'Nearshoring boom drives 35% industrial electricity demand surge in northern Mexico in two years.',
+      'Nuevo León, Chihuahua, and Coahuila face peak-hour shortages forcing dedicated industrial power deals.',
+      'Over 8 GW of industrial solar projects in permitting as CFE and private developers race to add supply.',
+    ],
+    short_summary_es: [
+      'El nearshoring impulsa un aumento del 35% en la demanda industrial de electricidad en el norte de México.',
+      'Nuevo León, Chihuahua y Coahuila enfrentan escasez en horas pico, forzando contratos de generación dedicada.',
+      'Más de 8 GW de proyectos solares industriales en tramitación para cubrir la nueva demanda.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
+  // ── Energía Hoy Mexico (Press) ────────────────────────────
+  {
+    id: 'mock-enhoy-001',
+    title: 'Energía Hoy: Mexico\'s clean energy capacity reaches 30 GW — surpassing natural gas for first time',
+    title_es: 'Energía Hoy: La capacidad de energía limpia de México alcanza los 30 GW y supera al gas natural por primera vez',
+    source: 'Energía Hoy',
+    source_type: 'Press',
+    location: 'Mexico',
+    category: 'Energy',
+    date: d(3),
+    url: 'https://energiahoy.com/2024/energia-limpia-30gw-supera-gas-natural',
+    extended_description: 'Mexico\'s total clean energy capacity — including large hydro, wind, solar, and geothermal — reached 30 GW, surpassing natural gas as a single technology for the first time, according to Energía Hoy. Solar has been the fastest-growing segment, adding 4 GW in the past 18 months driven by industrial self-supply contracts and IPP projects. The milestone comes despite regulatory uncertainty and reflects the strong economics of new solar and wind relative to combined-cycle gas.',
+    extended_description_es: 'La capacidad de energía limpia de México alcanzó los 30 GW, superando al gas natural como tecnología individual por primera vez. La solar ha sido el segmento de más rápido crecimiento, añadiendo 4 GW en los últimos 18 meses.',
+    short_summary: [
+      'Mexico\'s clean energy capacity hits 30 GW, surpassing natural gas as a single technology for the first time.',
+      'Solar added 4 GW in 18 months via industrial self-supply and IPP contracts despite regulatory uncertainty.',
+      'Strong solar and wind economics vs. combined-cycle gas drive the capacity milestone regardless of policy.',
+    ],
+    short_summary_es: [
+      'La capacidad limpia de México alcanza los 30 GW y supera al gas natural como tecnología individual.',
+      'La solar sumó 4 GW en 18 meses por contratos de autoabasto industrial y proyectos de IPP.',
+      'La economía del solar y la eólica frente al ciclo combinado impulsa el hito pese a la incertidumbre regulatoria.',
+    ],
+    created_at: new Date().toISOString(),
+    processed: true,
+  },
+
 ]
