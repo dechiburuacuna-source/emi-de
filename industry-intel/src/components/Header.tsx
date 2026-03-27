@@ -1,18 +1,34 @@
 'use client'
+import type { SortOrder } from './Dashboard'
 
 const TX: Record<string, Record<string, string>> = {
-  en: { updated: 'Updated', refresh: 'Refresh', mining: 'Mining', energy: 'Energy', dc: 'Data Centers',
-        tagline: 'Trusted sources · AI-summarized · Auto-updated 08:00 CLT' },
-  es: { updated: 'Actualizado', refresh: 'Actualizar', mining: 'Minería', energy: 'Energía', dc: 'Data Centers',
-        tagline: 'Fuentes confiables · Resumido por IA · Actualización 08:00 CLT' },
+  en: {
+    updated: 'Updated', refresh: 'Refresh',
+    mining: 'Mining', energy: 'Energy', dc: 'Data Centers',
+    newestFirst: 'Newest first', oldestFirst: 'Oldest first',
+    tagline: 'Trusted sources · AI-summarized · Auto-updated 08:00 CLT',
+    articles: 'articles',
+  },
+  es: {
+    updated: 'Actualizado', refresh: 'Actualizar',
+    mining: 'Minería', energy: 'Energía', dc: 'Data Centers',
+    newestFirst: 'Más recientes', oldestFirst: 'Más antiguos',
+    tagline: 'Fuentes confiables · Resumido por IA · Actualización 08:00 CLT',
+    articles: 'artículos',
+  },
 }
 
 interface HeaderProps {
   lang: 'en' | 'es'; onLangChange: (l: 'en' | 'es') => void
   onRefresh: () => void; isRefreshing: boolean; lastUpdated: string | null
+  sortOrder: SortOrder; onSortChange: (s: SortOrder) => void
+  articleCount: number
 }
 
-export default function Header({ lang, onLangChange, onRefresh, isRefreshing, lastUpdated }: HeaderProps) {
+export default function Header({
+  lang, onLangChange, onRefresh, isRefreshing, lastUpdated,
+  sortOrder, onSortChange, articleCount,
+}: HeaderProps) {
   const t = TX[lang]
   const today = new Date().toLocaleDateString(lang === 'es' ? 'es-CL' : 'en-US', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
@@ -23,29 +39,57 @@ export default function Header({ lang, onLangChange, onRefresh, isRefreshing, la
 
   return (
     <header style={{ background: 'var(--paper)', borderBottom: '1px solid var(--rule)', flexShrink: 0 }}>
+
       {/* ── Top utility bar ─────────────────────────────── */}
-      <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--ink-black)' }}
-        className="px-4 md:px-6 py-1 flex items-center justify-between">
-        {/* Live indicator */}
-        <span className="font-mono text-xxs tracking-widest uppercase flex items-center gap-1.5"
+      <div style={{ background: 'var(--ink-black)', borderBottom: '1px solid var(--rule)' }}
+        className="px-4 md:px-6 py-1 flex items-center justify-between gap-3">
+
+        {/* Left: status */}
+        <span className="font-mono text-xxs tracking-widest uppercase flex items-center gap-1.5 flex-shrink-0"
           style={{ color: 'var(--rule)' }}>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400"
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"
             style={{ boxShadow: '0 0 4px #4ade80', animation: 'blink 2s infinite' }} />
           {lastUpdated ? `${t.updated} ${lastUpdated}` : 'Live'}
+          <span className="hidden md:inline" style={{ color: 'var(--rule-dark)' }}>
+            &nbsp;·&nbsp;{articleCount} {t.articles}
+          </span>
         </span>
-        {/* Controls */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onRefresh} disabled={isRefreshing}
+
+        {/* Right: sort + refresh + language */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+
+          {/* Sort order toggle */}
+          <div className="hidden md:flex items-center rounded overflow-hidden"
+            style={{ border: '1px solid var(--rule-dark)' }}>
+            {(['desc', 'asc'] as SortOrder[]).map(s => (
+              <button key={s} onClick={() => onSortChange(s)}
+                className="font-mono text-xxs px-2.5 py-0.5 transition-all flex items-center gap-1"
+                style={{
+                  color:      sortOrder === s ? 'var(--ink-black)' : 'var(--rule)',
+                  background: sortOrder === s ? 'white' : 'transparent',
+                  fontWeight: sortOrder === s ? '600' : '400',
+                }}>
+                <span>{s === 'desc' ? '↓' : '↑'}</span>
+                <span>{s === 'desc' ? t.newestFirst : t.oldestFirst}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="h-3 w-px hidden md:block" style={{ background: 'var(--rule-dark)' }} />
+
+          {/* Refresh */}
+          <button onClick={onRefresh} disabled={isRefreshing}
             className="font-mono text-xxs tracking-widest uppercase transition-colors disabled:opacity-40"
             style={{ color: 'var(--rule)' }}
             onMouseEnter={e => (e.currentTarget.style.color = 'white')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--rule)')}>
-            {isRefreshing ? '...' : t.refresh}
+            {isRefreshing ? '···' : t.refresh}
           </button>
+
           <div className="h-3 w-px" style={{ background: 'var(--rule-dark)' }} />
+
           {/* Language toggle */}
-          <div className="flex">
+          <div className="flex rounded overflow-hidden" style={{ border: '1px solid var(--rule-dark)' }}>
             {(['en', 'es'] as const).map(l => (
               <button key={l} onClick={() => onLangChange(l)}
                 className="font-mono text-xxs px-2.5 py-0.5 tracking-widest uppercase transition-all"
@@ -80,7 +124,7 @@ export default function Header({ lang, onLangChange, onRefresh, isRefreshing, la
         </p>
       </div>
 
-      {/* ── Section nav bar ──────────────────────────────── */}
+      {/* ── Section nav ──────────────────────────────────── */}
       <div className="hidden md:flex items-center px-4 md:px-6 py-1.5 gap-6 border-b"
         style={{ borderColor: 'var(--rule)' }}>
         {[

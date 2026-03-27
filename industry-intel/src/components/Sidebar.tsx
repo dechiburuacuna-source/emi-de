@@ -1,16 +1,18 @@
 'use client'
 import type { Article, Category, Location, SourceType } from '@/types/article'
 import { ALL_LOCATIONS, ALL_SOURCE_TYPES } from '@/lib/sources'
+import type { SortOrder } from './Dashboard'
 
 interface SidebarProps {
   articles: Article[]; filtered: Article[]
   cat: Category | 'all'; locations: Location[]
   srcType: SourceType | null; source: string | null
-  lang: 'en' | 'es'
+  lang: 'en' | 'es'; sortOrder: SortOrder
   onCat: (c: Category | 'all') => void
   onLocation: (l: Location) => void
   onSrcType: (t: SourceType) => void
   onSrc: (s: string) => void
+  onSortChange: (s: SortOrder) => void
 }
 
 const TX: Record<string, Record<string, string>> = {
@@ -20,6 +22,8 @@ const TX: Record<string, Record<string, string>> = {
     institutional: 'Institutional', press: 'Press',
     conglomerado: 'Trade Assoc.', marketAdvisor: 'Market Advisor',
     clearAll: 'Clear all',
+    sortBy: 'Order By',
+    newestFirst: '↓ Newest first', oldestFirst: '↑ Oldest first',
   },
   es: {
     nav: 'Secciones', home: 'Todas las Noticias', mining: 'Minería', energy: 'Energía', dc: 'Data Centers',
@@ -27,14 +31,16 @@ const TX: Record<string, Record<string, string>> = {
     institutional: 'Institucional', press: 'Prensa',
     conglomerado: 'Conglomerado', marketAdvisor: 'Asesor Mercado',
     clearAll: 'Limpiar todo',
+    sortBy: 'Ordenar Por',
+    newestFirst: '↓ Más recientes', oldestFirst: '↑ Más antiguos',
   },
 }
 
 const SRC_TYPE_COLORS: Record<SourceType, { text: string; bg: string; border: string }> = {
-  Institutional:   { text: '#3D1A6E', bg: 'rgba(61,26,110,0.08)',   border: 'rgba(61,26,110,0.25)' },
-  Press:           { text: '#6E3D1A', bg: 'rgba(110,61,26,0.08)',   border: 'rgba(110,61,26,0.25)' },
-  Conglomerado:    { text: '#1A5C3A', bg: 'rgba(26,92,58,0.08)',    border: 'rgba(26,92,58,0.25)' },
-  'Market Advisor':{ text: '#1A3A5C', bg: 'rgba(26,58,92,0.08)',    border: 'rgba(26,58,92,0.25)' },
+  Institutional:   { text: '#3D1A6E', bg: 'rgba(61,26,110,0.08)',  border: 'rgba(61,26,110,0.25)' },
+  Press:           { text: '#6E3D1A', bg: 'rgba(110,61,26,0.08)', border: 'rgba(110,61,26,0.25)' },
+  Conglomerado:    { text: '#1A5C3A', bg: 'rgba(26,92,58,0.08)',   border: 'rgba(26,92,58,0.25)' },
+  'Market Advisor':{ text: '#1A3A5C', bg: 'rgba(26,58,92,0.08)',   border: 'rgba(26,58,92,0.25)' },
 }
 
 const CAT_COLORS: Record<string, string> = {
@@ -43,8 +49,8 @@ const CAT_COLORS: Record<string, string> = {
 }
 
 export default function Sidebar({
-  articles, cat, locations, srcType, source, lang,
-  onCat, onLocation, onSrcType, onSrc,
+  articles, cat, locations, srcType, source, lang, sortOrder,
+  onCat, onLocation, onSrcType, onSrc, onSortChange,
 }: SidebarProps) {
   const t = TX[lang]
   const counts = {
@@ -101,9 +107,32 @@ export default function Sidebar({
         })}
       </div>
 
-      {/* ── Filters ───────────────────────────────────────── */}
-      <div className="px-4 pt-4 pb-3 flex-1">
+      {/* ── Sort Order ────────────────────────────────────── */}
+      <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--rule)' }}>
+        <div className="font-sans text-xxs font-medium tracking-wide uppercase mb-2"
+          style={{ color: 'var(--ink-muted)' }}>{t.sortBy}</div>
+        <div className="flex rounded overflow-hidden" style={{ border: '1px solid var(--rule)' }}>
+          {(['desc', 'asc'] as SortOrder[]).map(s => {
+            const label = s === 'desc' ? t.newestFirst : t.oldestFirst
+            const active = sortOrder === s
+            return (
+              <button key={s} onClick={() => onSortChange(s)}
+                className="flex-1 font-mono text-xxs py-1.5 px-1 text-center transition-all leading-tight"
+                style={{
+                  background:  active ? 'var(--ink-black)' : 'transparent',
+                  color:       active ? 'white' : 'var(--ink-muted)',
+                  borderRight: s === 'desc' ? '1px solid var(--rule)' : 'none',
+                  fontWeight:  active ? '600' : '400',
+                }}>
+                {label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
 
+      {/* ── Filters ───────────────────────────────────────── */}
+      <div className="px-4 pt-3 pb-3 flex-1">
         <div className="flex items-center justify-between mb-3">
           <div className="font-sans text-xxs font-semibold tracking-[0.18em] uppercase"
             style={{ color: 'var(--ink-muted)' }}>{t.filters}</div>
@@ -128,7 +157,7 @@ export default function Sidebar({
           ))}
         </div>
 
-        {/* Source Type — all 4 */}
+        {/* Source Type */}
         <div className="mb-4">
           <div className="font-sans text-xxs font-medium tracking-wide uppercase mb-2 pb-1"
             style={{ color: 'var(--ink-muted)', borderBottom: '1px solid var(--rule)' }}>{t.srcType}</div>
@@ -157,7 +186,7 @@ export default function Sidebar({
         <div>
           <div className="font-sans text-xxs font-medium tracking-wide uppercase mb-2 pb-1"
             style={{ color: 'var(--ink-muted)', borderBottom: '1px solid var(--rule)' }}>{t.src}</div>
-          <div className="flex flex-col max-h-52 overflow-y-auto gap-0.5">
+          <div className="flex flex-col max-h-48 overflow-y-auto gap-0.5">
             {allSources.map(s => (
               <label key={s} className="flex items-center gap-2 py-0.5 cursor-pointer">
                 <input type="checkbox" checked={source === s} onChange={() => onSrc(s)}

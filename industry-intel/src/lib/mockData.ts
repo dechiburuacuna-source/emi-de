@@ -11,7 +11,7 @@ export const MOCK_ARTICLES: Article[] = [
   // ── Revista Electricidad ─────────────────────────────────
   {
     id: 'mock-rev-elec-001',
-    title: 'Chile alcanza 30% de generación renovable en el Sistema Eléctrico Nacional',
+    title: 'Chile reaches 30% renewable generation share in the National Electricity System',
     title_es: 'Chile alcanza 30% de generación renovable en el Sistema Eléctrico Nacional',
     source: 'Revista Electricidad',
     source_type: 'Press',
@@ -36,7 +36,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-rev-elec-002',
-    title: 'Nuevas licitaciones de transmisión eléctrica suman 1.200 km de líneas al norte del país',
+    title: 'New electricity transmission tenders add 1,200 km of lines in northern Chile',
     title_es: 'Nuevas licitaciones de transmisión eléctrica suman 1.200 km de líneas al norte del país',
     source: 'Revista Electricidad',
     source_type: 'Press',
@@ -63,7 +63,7 @@ export const MOCK_ARTICLES: Article[] = [
   // ── Diario Financiero ────────────────────────────────────
   {
     id: 'mock-df-001',
-    title: 'Inversión extranjera en minería chilena crece 18% en primer semestre impulsada por cobre y litio',
+    title: 'Foreign investment in Chilean mining grows 18% in H1 driven by copper and lithium',
     title_es: 'Inversión extranjera en minería chilena crece 18% en primer semestre impulsada por cobre y litio',
     source: 'Diario Financiero',
     source_type: 'Press',
@@ -88,7 +88,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-df-002',
-    title: 'Precio del cobre supera los US$4,5 la libra por tensiones en oferta y demanda de IA',
+    title: 'Copper price tops US$4.5/lb on supply tensions and AI infrastructure demand',
     title_es: 'Precio del cobre supera los US$4,5 la libra por tensiones en oferta y demanda de IA',
     source: 'Diario Financiero',
     source_type: 'Press',
@@ -113,7 +113,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-df-003',
-    title: 'Enel Chile anuncia plan de inversión de US$1.800 millones en renovables y almacenamiento',
+    title: 'Enel Chile announces US$1.8 billion investment plan in renewables and storage',
     title_es: 'Enel Chile anuncia plan de inversión de US$1.800 millones en renovables y almacenamiento',
     source: 'Diario Financiero',
     source_type: 'Press',
@@ -140,7 +140,7 @@ export const MOCK_ARTICLES: Article[] = [
   // ── La Tercera ──────────────────────────────────────────
   {
     id: 'mock-lt-001',
-    title: 'Gobierno anuncia plan nacional de hidrógeno verde con meta de 25 GW al 2030',
+    title: 'Government announces national green hydrogen plan targeting 25 GW by 2030',
     title_es: 'Gobierno anuncia plan nacional de hidrógeno verde con meta de 25 GW al 2030',
     source: 'La Tercera',
     source_type: 'Press',
@@ -165,7 +165,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-lt-002',
-    title: 'SQM reporta caída de 42% en utilidades por desplome del precio del litio',
+    title: 'SQM reports 42% profit decline due to lithium price collapse',
     title_es: 'SQM reporta caída de 42% en utilidades por desplome del precio del litio',
     source: 'La Tercera',
     source_type: 'Press',
@@ -192,7 +192,7 @@ export const MOCK_ARTICLES: Article[] = [
   // ── Emol ────────────────────────────────────────────────
   {
     id: 'mock-emol-001',
-    title: 'Chile aprobó proyecto de ley de almacenamiento energético que facilita baterías de gran escala',
+    title: 'Chile passes energy storage law enabling grid-scale battery systems',
     title_es: 'Chile aprobó proyecto de ley de almacenamiento energético que facilita baterías de gran escala',
     source: 'Emol',
     source_type: 'Press',
@@ -217,7 +217,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-emol-002',
-    title: 'Codelco registra pérdidas operacionales por alza de costos y menor ley de mineral',
+    title: 'Codelco posts operating losses as costs rise and ore grades decline',
     title_es: 'Codelco registra pérdidas operacionales por alza de costos y menor ley de mineral',
     source: 'Emol',
     source_type: 'Press',
@@ -244,7 +244,7 @@ export const MOCK_ARTICLES: Article[] = [
   // ── Economía y Negocios (El Mercurio) ────────────────────
   {
     id: 'mock-eyn-001',
-    title: 'Tarifas eléctricas industriales bajarán 12% en próximo proceso de tarificación',
+    title: 'Industrial electricity tariffs to fall 12% in upcoming regulatory period',
     title_es: 'Tarifas eléctricas industriales bajarán 12% en próximo proceso de tarificación',
     source: 'Economia y Negocios',
     source_type: 'Press',
@@ -269,7 +269,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-eyn-002',
-    title: 'Data centers en Chile suman 300 MW de capacidad instalada ante auge de IA',
+    title: 'Data centers in Chile reach 300 MW installed capacity amid AI boom',
     title_es: 'Data centers en Chile suman 300 MW de capacidad instalada ante auge de IA',
     source: 'Economia y Negocios',
     source_type: 'Press',
@@ -371,7 +371,7 @@ export const MOCK_ARTICLES: Article[] = [
   },
   {
     id: 'mock-cochilco-001',
-    title: 'Cochilco proyecta producción de cobre de 5,7 Mt para 2024 con leve recuperación en H2',
+    title: 'Cochilco projects 5.7 Mt copper output for 2024 with mild H2 recovery',
     title_es: 'Cochilco proyecta producción de cobre de 5,7 Mt para 2024 con leve recuperación en H2',
     source: 'Cochilco',
     source_type: 'Institutional',

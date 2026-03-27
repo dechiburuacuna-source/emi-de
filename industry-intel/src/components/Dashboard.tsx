@@ -7,22 +7,18 @@ import MainFeed from './MainFeed'
 import RightPanel from './RightPanel'
 import LoadingScreen from './LoadingScreen'
 
+export type SortOrder = 'desc' | 'asc'
+
 const TX: Record<string, Record<string, string>> = {
   en: {
-    loading: 'Loading intelligence feed',
-    connecting: 'Connecting trusted sources',
-    composing: 'Composing front page',
-    filters: '☰ Filters',
-    close: '✕ Close',
+    loading: 'Loading intelligence feed', connecting: 'Connecting trusted sources',
+    composing: 'Composing front page', filters: '☰ Filters', close: '✕ Close',
     all: 'All', mining: 'Mining', energy: 'Energy', dc: 'DC',
     keyIns: 'Key Insights', read: 'Read full article →',
   },
   es: {
-    loading: 'Cargando feed de inteligencia',
-    connecting: 'Conectando fuentes confiables',
-    composing: 'Componiendo portada',
-    filters: '☰ Filtros',
-    close: '✕ Cerrar',
+    loading: 'Cargando feed de inteligencia', connecting: 'Conectando fuentes confiables',
+    composing: 'Componiendo portada', filters: '☰ Filtros', close: '✕ Cerrar',
     all: 'Todas', mining: 'Minería', energy: 'Energía', dc: 'DC',
     keyIns: 'Puntos Clave', read: 'Leer artículo →',
   },
@@ -41,6 +37,7 @@ export default function Dashboard() {
   const [locations,   setLocations]   = useState<Location[]>([])
   const [srcType,     setSrcType]     = useState<SourceType | null>(null)
   const [source,      setSource]      = useState<string | null>(null)
+  const [sortOrder,   setSortOrder]   = useState<SortOrder>('desc')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const fetchArticles = useCallback(async () => {
@@ -53,6 +50,13 @@ export default function Dashboard() {
     const data = await res.json()
     return (data.articles || []) as Article[]
   }, [cat, locations, srcType, source])
+
+  // Sort articles by date
+  const sortedArticles = [...articles].sort((a, b) => {
+    const da = new Date(a.date).getTime()
+    const db = new Date(b.date).getTime()
+    return sortOrder === 'desc' ? db - da : da - db
+  })
 
   // Initial load
   useEffect(() => {
@@ -79,7 +83,6 @@ export default function Dashboard() {
     return () => { cancelled = true; clearTimeout(timer) }
   }, []) // eslint-disable-line
 
-  // Re-fetch on filter change (after initial load)
   useEffect(() => {
     if (loading) return
     fetchArticles().then(arts => { setArticles(arts); setSelected(null) })
@@ -110,11 +113,12 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden" style={{ background: 'var(--paper)' }}>
-      {/* Header */}
       <Header
         lang={lang} onLangChange={setLang}
         onRefresh={handleRefresh} isRefreshing={refreshing}
         lastUpdated={lastUpdated}
+        sortOrder={sortOrder} onSortChange={setSortOrder}
+        articleCount={sortedArticles.length}
       />
 
       {/* Mobile filter / category bar */}
@@ -142,32 +146,32 @@ export default function Dashboard() {
 
       {/* Main layout */}
       <div className="flex flex-1 overflow-hidden relative">
-        {/* Sidebar — desktop always visible, mobile overlay when open */}
+        {/* Sidebar */}
         <div className={`${sidebarOpen ? 'flex' : 'hidden'} md:flex flex-col absolute md:relative z-20 h-full shadow-xl md:shadow-none`}>
           <Sidebar
-            articles={articles} filtered={articles}
+            articles={articles} filtered={sortedArticles}
             cat={cat} locations={locations} srcType={srcType} source={source}
-            lang={lang}
+            lang={lang} sortOrder={sortOrder}
             onCat={c => { setCat(c); setSidebarOpen(false) }}
-            onLocation={handleLocation}
-            onSrcType={handleSrcType}
-            onSrc={handleSrc}
+            onLocation={handleLocation} onSrcType={handleSrcType} onSrc={handleSrc}
+            onSortChange={setSortOrder}
           />
         </div>
 
         {/* Center feed */}
         <MainFeed
-          articles={articles} selected={selected}
-          cat={cat} lang={lang} onSelect={setSelected}
+          articles={sortedArticles} selected={selected}
+          cat={cat} lang={lang} sortOrder={sortOrder}
+          onSelect={setSelected}
         />
 
-        {/* Right panel — large screens only */}
+        {/* Right panel */}
         <div className="hidden lg:flex">
-          <RightPanel selected={selected} filtered={articles} lang={lang} />
+          <RightPanel selected={selected} filtered={sortedArticles} lang={lang} />
         </div>
       </div>
 
-      {/* Mobile: article summary drawer */}
+      {/* Mobile drawer */}
       {selected && (
         <div className="lg:hidden fixed bottom-0 inset-x-0 z-30 max-h-60 overflow-y-auto shadow-2xl"
           style={{ background: 'var(--paper-2)', borderTop: '2px solid var(--ink-black)' }}>
